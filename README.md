@@ -18,7 +18,7 @@ Le programme valide les informations suivantes pour chaque utilisateur :
 - Rapport détaillé des erreurs de validation
 - Correction interactive des erreurs
 - Affichage sécurisé (mot de passe masqué)
-- Gestion de 2 utilisateurs
+- Possibilité d'encoder un deuxième utilisateur (optionnel)
 - Vérification d'unicité des logins
 
 ## Structure du projet
@@ -31,7 +31,7 @@ projetUtilisateur/
 ├── checkemail.py               # Validation adresse email
 ├── checklogin.py               # Validation login
 ├── module_mots_de_passe.py     # Validation mot de passe
-└── README                      # Documentation
+└── README.md                   # Documentation
 ```
 
 ## Installation et exécution
@@ -51,8 +51,10 @@ python main.py
 1. **Saisie utilisateur 1** : Le programme demande toutes les informations
 2. **Validation** : Rapport d'erreurs si des champs sont invalides
 3. **Correction** : Possibilité de corriger les erreurs
-4. **Saisie utilisateur 2** : Même processus + vérification unicité login
-5. **Affichage final** : Présentation des deux utilisateurs validés
+4. **Affichage immédiat** : Dès que tout est OK, affichage avec mot de passe masqué
+5. **Option deuxième utilisateur** : Possibilité d'encoder un 2e utilisateur
+6. **Vérification unicité** : Contrôle que les logins sont différents
+7. **Récapitulatif final** : Présentation des utilisateurs validés
 
 ### Exemple d'utilisation
 ```
@@ -64,43 +66,51 @@ Email : jean.dupont@email.be
 Login : jdupont
 Mot de passe : MonMotDePasse123!
 
-TOUTES LES VALIDATIONS SONT OK
+✅ TOUTES LES VALIDATIONS SONT OK
+
+=== INFORMATIONS UTILISATEUR 1 VALIDÉES ===
+Nom : Dupont
+Prénom : Jean-Pierre
+Code postal : 1000
+Email : jean.dupont@email.be
+Login : jdupont
+Mot de passe : ******************
 ```
 
 ## Règles de validation détaillées
 
 ### Nom et Prénom
-- Lettres uniquement (a-z, A-Z)
-- Traits d'union autorisés (-)
-- Nom différent du prénom
-- Chiffres interdits
-- Caractères spéciaux interdits (sauf trait d'union)
+- ✅ Lettres uniquement (a-z, A-Z)
+- ✅ Traits d'union autorisés (-)
+- ✅ Nom différent du prénom
+- ❌ Chiffres interdits
+- ❌ Caractères spéciaux interdits (sauf trait d'union)
 
 ### Code postal
-- Format belge : 4 chiffres
-- Plage valide : 1000 à 9992
-- Codes invalides : 0000-0999, 9993-9999
+- ✅ Format belge : 4 chiffres
+- ✅ Plage valide : 1000 à 9992
+- ❌ Codes invalides : 0000-0999, 9993-9999
 
 ### Email
-- Format : xxx@xxx.xx
-- Caractères autorisés : lettres, chiffres, points, tirets
-- Un seul @ obligatoire
-- Au moins un point après @
-- Autres caractères spéciaux interdits
+- ✅ Format : xxx@xxx.xx
+- ✅ Caractères autorisés : lettres, chiffres, points, tirets
+- ✅ Un seul @ obligatoire
+- ✅ Au moins un point après @
+- ❌ Autres caractères spéciaux interdits
 
 ### Login
-- Minuscules uniquement
-- Chiffres autorisés
-- Unicité entre les deux utilisateurs
-- Majuscules interdites
-- Caractères spéciaux interdits
+- ✅ Minuscules uniquement
+- ✅ Chiffres autorisés
+- ✅ Unicité entre les deux utilisateurs
+- ❌ Majuscules interdites
+- ❌ Caractères spéciaux interdits
 
 ### Mot de passe
-- Minimum 10 caractères
-- Au moins 1 majuscule (A-Z)
-- Au moins 1 minuscule (a-z)
-- Au moins 1 chiffre (0-9)
-- Au moins 1 caractère spécial (@#&"'(§)!-_<>,;:/=+ù%^¨`£$*¥€)
+- ✅ Minimum 10 caractères
+- ✅ Au moins 1 majuscule (A-Z)
+- ✅ Au moins 1 minuscule (a-z)
+- ✅ Au moins 1 chiffre (0-9)
+- ✅ Au moins 1 caractère spécial (@#&"'(§)!-_<>,;:/=+ù%^¨`£$*¥€)
 
 ## Architecture du code
 
@@ -145,21 +155,21 @@ mot_de_passe = "MonMotDePasse123!"
 ## Gestion des erreurs
 
 Le programme affiche des messages d'erreur explicites :
-- Description précise du problème
-- Possibilité de correction immédiate
-- Validation en temps réel
-- Rapport complet avant affichage final
+- 📝 Description précise du problème
+- 🔄 Possibilité de correction immédiate
+- ✅ Validation en temps réel
+- 📊 Rapport complet avant affichage final
 
 ## Sécurité
 
-- Mot de passe jamais affiché en clair
-- Masquage par astérisques (*)
-- Validation robuste des critères de complexité
-- Prévention des logins dupliqués
+- 🔒 Mot de passe jamais affiché en clair
+- 🎭 Masquage par astérisques (*)
+- 🔐 Validation robuste des critères de complexité
+- 🛡️ Prévention des logins dupliqués
 
 ## Auteur
 
 Projet développé dans le cadre du cours de programmation ESA.
 
 ---
-*Dernière mise à jour : Décembre 2024*
+
