@@ -93,7 +93,6 @@ def main():
     utilisateur1_valide = False
     utilisateur2_valide = False
     login1 = ""
-    login2 = ""
     
     # Saisie et validation utilisateur 1
     while not utilisateur1_valide:
@@ -103,31 +102,55 @@ def main():
         
         if not utilisateur1_valide:
             print("\n⚠️  Veuillez corriger les erreurs et recommencer.")
+        else:
+            # Affichage immédiat dès que la validation est OK
+            print("\n=== INFORMATIONS UTILISATEUR 1 VALIDÉES ===")
+            afficher_utilisateur_final(nom1, prenom1, cp1, email1, login1, mdp1)
     
-    # Saisie et validation utilisateur 2
-    while not utilisateur2_valide:
-        nom2, prenom2, cp2, email2, login2, mdp2 = saisir_utilisateur(2)
-        erreurs2 = valider_utilisateur(nom2, prenom2, cp2, email2, login2, mdp2)
-        
-        # Vérification login unique
-        if not check_login_unique(login1, login2):
-            erreurs2.append("Login : doit être différent de l'utilisateur 1")
-        
-        utilisateur2_valide = afficher_rapport(2, erreurs2)
-        
-        if not utilisateur2_valide:
-            print("\n⚠️  Veuillez corriger les erreurs et recommencer.")
+    # Demander directement si l'utilisateur veut encoder un deuxième utilisateur
+    while True:
+        reponse = input("\nSouhaitez-vous encoder un deuxième utilisateur ? (o/n) : ").lower().strip()
+        if reponse in ['o', 'oui', 'y', 'yes']:
+            encoder_deuxieme = True
+            break
+        elif reponse in ['n', 'non', 'no']:
+            encoder_deuxieme = False
+            break
+        else:
+            print("Veuillez répondre par 'o' (oui) ou 'n' (non)")
     
-    # Affichage final
+    if encoder_deuxieme:
+        # Saisie et validation utilisateur 2
+        while not utilisateur2_valide:
+            nom2, prenom2, cp2, email2, login2, mdp2 = saisir_utilisateur(2)
+            erreurs2 = valider_utilisateur(nom2, prenom2, cp2, email2, login2, mdp2)
+            
+            # Vérification login unique
+            if not check_login_unique(login1, login2):
+                erreurs2.append("Login : doit être différent de l'utilisateur 1")
+            
+            utilisateur2_valide = afficher_rapport(2, erreurs2)
+            
+            if not utilisateur2_valide:
+                print("\n⚠️  Veuillez corriger les erreurs et recommencer.")
+            else:
+                # Affichage immédiat dès que la validation est OK
+                print("\n=== INFORMATIONS UTILISATEUR 2 VALIDÉES ===")
+                afficher_utilisateur_final(nom2, prenom2, cp2, email2, login2, mdp2)
+    
+    # Affichage final récapitulatif
     print("\n" + "="*50)
     print("🎉 ENCODAGE TERMINÉ AVEC SUCCÈS !")
     print("="*50)
     
-    print("\n=== UTILISATEUR 1 ===")
+    print("\n=== RÉCAPITULATIF UTILISATEUR 1 ===")
     afficher_utilisateur_final(nom1, prenom1, cp1, email1, login1, mdp1)
     
-    print("\n=== UTILISATEUR 2 ===")
-    afficher_utilisateur_final(nom2, prenom2, cp2, email2, login2, mdp2)
+    if encoder_deuxieme:
+        print("\n=== RÉCAPITULATIF UTILISATEUR 2 ===")
+        afficher_utilisateur_final(nom2, prenom2, cp2, email2, login2, mdp2)
+    else:
+        print("\nAucun deuxième utilisateur encodé.")
 
 if __name__ == "__main__":
     main()
